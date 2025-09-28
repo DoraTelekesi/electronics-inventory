@@ -20,8 +20,8 @@ const seedDB = async () => {
     const sparePart = new SparePart({
       manufacturer: manufacturers[randomManu],
       model: model[randomMod],
-      type: model[randomTyp],
-      depot: model[randomDep],
+      type: types[randomTyp],
+      depot: depots[randomDep],
       amount: Math.floor(Math.random() * 15),
       remarks: remarks,
     });
