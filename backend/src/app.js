@@ -10,9 +10,8 @@ async function main() {
   console.log("Connection open");
 }
 
-app.get("/d/:name", (req, res) => {
-  const { name } = req.params;
-  res.send(`THIS IS RESPONSE FROM ${name}`);
+app.get("/", (req, res) => {
+  res.send("THIS IS RESPONSE");
 });
 
 app.use((req, res) => {
