@@ -7,14 +7,7 @@ const app = express();
 //depends what type of body parsing I want, for regular form -->
 app.use(express.urlencoded({ extended: true }));
 //for json - raw data -->
-// app.use(express.json())
-
-main().catch((err) => console.log("Error", err));
-async function main() {
-  console.log("Connecting...");
-  await mongoose.connect("mongodb://localhost:27017/inventory-app");
-  console.log("Connection open");
-}
+app.use(express.json());
 
 app.get("/spare-part-list", async (req, res) => {
   const spareParts = await SparePart.find({});
@@ -60,6 +53,4 @@ app.use((req, res) => {
   res.send("THIS IS RESPONSE to catch all");
 });
 
-app.listen(3000, () => {
-  console.log("listening on DORUS port 3000");
-});
+export default app;
