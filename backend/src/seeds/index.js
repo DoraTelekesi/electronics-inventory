@@ -2,10 +2,13 @@ import mongoose from "mongoose";
 import SparePart from "../models/spare-part.js";
 import { manufacturers, depots, remarks, types, model } from "./seedHelper.js";
 
+const PORT = 3000;
+const DB_NAME = "sparepartsDB";
+
 main().catch((err) => console.log("Error", err));
 async function main() {
   console.log("Connecting...");
-  await mongoose.connect("mongodb://localhost:27017/inventory-app");
+  await mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`);
   console.log("Connection open");
 }
 
@@ -16,14 +19,14 @@ const seedDB = async () => {
     const randomDep = Math.floor(Math.random() * depots.length);
     const randomTyp = Math.floor(Math.random() * remarks.length);
     const randomMod = Math.floor(Math.random() * types.length);
-    // const randomRem = Math.floor(Math.random() * model.length);
+    const randomRem = Math.floor(Math.random() * model.length);
     const sparePart = new SparePart({
       manufacturer: manufacturers[randomManu],
       model: model[randomMod],
       type: types[randomTyp],
       depot: depots[randomDep],
-      amount: Math.floor(Math.random() * 15),
-      remarks: remarks,
+      amount: Math.floor(Math.random() * 15) + 1,
+      remarks: remarks[randomRem],
     });
     await sparePart.save();
   }

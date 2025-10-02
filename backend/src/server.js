@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 import app from "./app.js";
 
-main().catch((err) => console.log("Error", err));
-async function main() {
-  console.log("Connecting...");
-  await mongoose.connect("mongodb://localhost:27017/inventory-app");
-  console.log("Connection open");
-}
+const PORT = 3000;
+const DB_NAME = "sparepartsDB";
 
-app.listen(3000, () => {
-  console.log("listening on DORUS port 3000");
-});
+mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log("MongoDB connected inside container");
+  app.listen(PORT, () => {
+    console.log(`Backend running on http://localhost:${PORT}`);
+  });
+})
+.catch(err => console.error("❌ MongoDB connection error:", err));

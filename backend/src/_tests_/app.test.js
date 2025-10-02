@@ -144,7 +144,7 @@ describe("Spare Part API", () => {
       });
       const res = await request(app)
         .put(`/spare-part-list/${part._id}`)
-        .send({ manufacturer: "Bosch", model: "X123", type: "Filter", depot: "Main", amount: null });
+        .send({ manufacturer: "Bosch", model: "X123", type: 256, depot: "Main", amount: 2 });
       expect(res.statusCode).toBe(400);
       expect(res.body.message).toBe("Invalid Spare Part Data");
     });
