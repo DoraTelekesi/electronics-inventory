@@ -14,4 +14,4 @@ mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`, {
     console.log(`Backend running on http://localhost:${PORT}`);
   });
 })
-.catch(err => console.error("❌ MongoDB connection error:", err));
+.catch(err => console.error("MongoDB connection error:", err));

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import app from "../app.js";
 import SparePart from "../models/spare-part.js";
+// import router from "../routes/spare-part.js";
 
 let mongoServer;
 
@@ -30,7 +31,7 @@ describe("Spare Part API", () => {
         type: "Filter",
         depot: "Main",
         amount: 5,
-        remarks: ["test remark"],
+        remarks: "test remark",
       };
       const res = await request(app).post("/spare-part-list").send(data);
       expect(res.statusCode).toBe(201);
@@ -146,7 +147,7 @@ describe("Spare Part API", () => {
         .put(`/spare-part-list/${part._id}`)
         .send({ manufacturer: "Bosch", model: "X123", type: 256, depot: "Main", amount: 2 });
       expect(res.statusCode).toBe(400);
-      expect(res.body.message).toBe("Invalid Spare Part Data");
+      expect(res.body.message).toBe('"type" must be a string');
     });
 
     it("should return 404 if DELETE :/id is not found", async () => {
