@@ -5,7 +5,7 @@ const sparePartSchema = Joi.object({
   model: Joi.string().required(),
   type: Joi.string().required(),
   depot: Joi.string().required(),
-  amount: Joi.number().required().min(0),
+  amount: Joi.number().required().min(1),
   remarks: Joi.string(),
 });
 

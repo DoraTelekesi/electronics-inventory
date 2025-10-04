@@ -5,6 +5,7 @@ import catchAsync from "./utils/catchAsync.js";
 import ExpressError from "./utils/ExpressError.js";
 import validateSparePart from "./middleware.js";
 import sparePartRoutes from "./routes/spare-part.js"
+import userRoutes from "./routes/user.js"
 
 
 const app = express();
@@ -15,39 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/spare-part-list", sparePartRoutes);
+app.use("/", userRoutes)
 
-// app.get(
-//   "/spare-part-list",
-
-// );
-
-// app.get(
-//   "/spare-part-list/:id",
-
-// );
-
-// app.get(
-//   "/spare-part-list/:id/edit",
-
-
-// );
-
-// app.put(
-//   "/spare-part-list/:id",
-
-
-// );
-
-// app.post(
-//   "/spare-part-list",
-  
-
-// );
-
-// app.delete(
-//   "/spare-part-list/:id",
-
-// );
 
 //to catch all route, if there is no match
 app.all(/(.*)/, (req, res, next) => {
