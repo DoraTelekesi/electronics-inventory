@@ -3,10 +3,9 @@ import mongoose from "mongoose";
 import SparePart from "./models/spare-part.js";
 import catchAsync from "./utils/catchAsync.js";
 import ExpressError from "./utils/ExpressError.js";
-import validateSparePart from "./middleware.js";
-import sparePartRoutes from "./routes/spare-part.js"
-import userRoutes from "./routes/user.js"
-
+import validateSparePart from "./middleware/validateSparePart.js";
+import sparePartRoutes from "./routes/spare-part.js";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 
@@ -15,9 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 //for json - raw data -->
 app.use(express.json());
 
+app.use("/", userRoutes);
 app.use("/spare-part-list", sparePartRoutes);
-app.use("/", userRoutes)
-
 
 //to catch all route, if there is no match
 app.all(/(.*)/, (req, res, next) => {

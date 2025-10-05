@@ -1,14 +1,15 @@
 import express from "express";
 import SparePart from "../models/spare-part.js";
-import validateSparePart from "../middleware.js";
+import validateSparePart from "../middleware/validateSparePart.js";
 import catchAsync from "../utils/catchAsync.js";
 import ExpressError from "../utils/ExpressError.js";
+import authenticateToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(
+  .get(authenticateToken,
     catchAsync(async (req, res, next) => {
       const spareParts = await SparePart.find({});
       if (spareParts.length === 0) {

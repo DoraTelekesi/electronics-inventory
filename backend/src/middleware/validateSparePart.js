@@ -1,5 +1,5 @@
-import sparePartSchema from "./schemas.js";
-import ExpressError from "./utils/ExpressError.js";
+import sparePartSchema from "../schemas.js";
+import ExpressError from "../utils/ExpressError.js";
 
 const validateSparePart = (req, res, next) => {
   const { error } = sparePartSchema.validate(req.body);
