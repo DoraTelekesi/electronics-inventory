@@ -27,6 +27,7 @@ beforeAll(async () => {
   expect(res.status).toBe(200);
   expect(res.body.token).toBeDefined();
   token = res.body.token;
+  console.log("Test token:", token);
 });
 
 afterAll(async () => {
@@ -141,7 +142,7 @@ describe("Spare Part API", () => {
 
     it("should return 404 if PUT /:id item is not found", async () => {
       const fakeId = new mongoose.Types.ObjectId();
-      const res = await request(app).put(`/spare-part-list/${fakeId}`).send({
+      const res = await request(app).put(`/spare-part-list/${fakeId}`).set("Authorization", `Bearer ${token}`).send({
         manufacturer: "Test",
         model: "TestModel",
         type: "TestType",
@@ -173,6 +174,17 @@ describe("Spare Part API", () => {
       const res = await request(app).delete(`/spare-part-list/${fakeId}`).set("Authorization", `Bearer ${token}`);
       expect(res.statusCode).toBe(404);
       expect(res.body.message).toBe("Spare Part Not Found");
+    });
+    it("should return 401 if no token is provided", async () => {
+      const res = await request(app).get("/spare-part-list");
+      expect(res.statusCode).toBe(401);
+      expect(res.body.message).toMatch(/no token/i);
+    });
+
+    it("should return 403 if token is invalid", async () => {
+      const res = await request(app).get("/spare-part-list").set("Authorization", "Bearer invalidtoken");
+      expect(res.statusCode).toBe(403);
+      expect(res.body.message).toMatch(/invalid/i);
     });
   });
 });
