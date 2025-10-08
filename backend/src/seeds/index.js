@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import SparePart from "../models/spare-part.js";
 import { manufacturers, depots, remarks, types, model } from "./seedHelper.js";
 
-const PORT = 3000;
+
 const DB_NAME = "sparepartsDB";
 
 main().catch((err) => console.log("Error", err));

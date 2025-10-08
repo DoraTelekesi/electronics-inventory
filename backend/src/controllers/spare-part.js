@@ -15,14 +15,18 @@ export const renderAllSpareParts = async (req, res, next) => {
 };
 
 export const createSpareParts = async (req, res, next) => {
-  const { manufacturer, model, type, depot, amount, remarks } = req.body;
-  const newSparePart = new SparePart({ manufacturer, model, type, depot, amount, remarks });
-  await newSparePart.save();
-  console.log(newSparePart);
-  res.status(201).json({
-    message: "New item added",
-    sparePart: newSparePart,
-  });
+  try {
+    const { manufacturer, model, type, depot, amount, remarks } = req.body;
+    const newSparePart = new SparePart({ manufacturer, model, type, depot, amount, remarks });
+    await newSparePart.save();
+    console.log(newSparePart);
+    res.status(201).json({
+      message: "New item added",
+      sparePart: newSparePart,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const showSparePart = async (req, res, next) => {

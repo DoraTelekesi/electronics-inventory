@@ -1,7 +1,5 @@
 import express from "express";
 
-
-
 import ExpressError from "./utils/ExpressError.js";
 
 import sparePartRoutes from "./routes/spare-part.js";
@@ -23,7 +21,7 @@ app.all(/(.*)/, (req, res, next) => {
 });
 
 //Error handler middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   const { statusCode = 500, message = "SOMETHING WENT WRONG" } = err;
   res.status(statusCode).json({
     status: "error",
