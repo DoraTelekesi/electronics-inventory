@@ -1,9 +1,9 @@
 import express from "express";
-import mongoose from "mongoose";
-import SparePart from "./models/spare-part.js";
-import catchAsync from "./utils/catchAsync.js";
+
+
+
 import ExpressError from "./utils/ExpressError.js";
-import validateSparePart from "./middleware/validateSparePart.js";
+
 import sparePartRoutes from "./routes/spare-part.js";
 import userRoutes from "./routes/user.js";
 

@@ -1,9 +1,6 @@
 import express from "express";
-import User from "../models/user.js";
-
 import validateUser from "../middleware/validateUser.js";
 import { userLoginSchema, userRegisterSchema } from "../schemas.js";
-import ExpressError from "../utils/ExpressError.js";
 import * as users from "../controllers/user.js";
 
 const router = express.Router();
