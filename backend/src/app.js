@@ -7,10 +7,17 @@ import userRoutes from "./routes/user.js";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import sanitizeV5 from "./utils/mongoSanitizeV5.js";
+import cors from "cors";
 
 const app = express();
-
-
+app.use(
+  cors({
+    // origin: "http://localhost:4200", // your Angular dev URL
+    // credentials: true,
+    // allowedHeaders: ["Content-Type", "Authorization"],
+    // methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // if using cookies or auth headers
+  })
+);
 //depends what type of body parsing I want, for regular form -->
 app.use(express.urlencoded({ extended: true }));
 //for json - raw data -->
@@ -35,13 +42,12 @@ app.use(
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100, 
-  standardHeaders: true, 
-  legacyHeaders: false, 
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 app.use(limiter);
-
 
 app.use("/", userRoutes);
 app.use("/spare-part-list", sparePartRoutes);

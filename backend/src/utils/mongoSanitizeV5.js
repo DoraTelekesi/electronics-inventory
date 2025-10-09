@@ -1,4 +1,4 @@
-const mongoSanitize = require("express-mongo-sanitize");
+import mongoSanitize from "express-mongo-sanitize";
 
 // deep-clone helper
 function deepCopy(obj) {
@@ -8,7 +8,7 @@ function deepCopy(obj) {
 }
 
 // middleware
-module.exports = function sanitizeV5(options = {}) {
+export default function sanitizeV5(options = {}) {
   const hasOnSanitize = typeof options.onSanitize === "function";
 
   return function (req, _res, next) {
