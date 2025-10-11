@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Kanit", sans-serif;
+}
+
+body,
+html {
+  height: 100vh;
+  // width: 100vw;
+}
+
+@font-face {
+  font-family: "Kunit";
+  src: url(assets/fonts/Kanit/Kanit-Regular.ttf);
+  font-weight: regular;
+}

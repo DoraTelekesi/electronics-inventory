@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  sparePartList$: Observable<any>;
-  constructor(private apiService: ApiService) {
-    this.sparePartList$ = this.apiService.getSparePartList();
-  }
+  // sparePartList$: Observable<any>;
+  // constructor(private apiService: ApiService) {
+  //   this.sparePartList$ = this.apiService.getSparePartList();
+  // }
 }

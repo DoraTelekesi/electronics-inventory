@@ -7,7 +7,8 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000/spare-part-list';
+  private apiUrl = 'http://localhost:3000/';
+
   constructor(private http: HttpClient) {}
   getSparePartList(): Observable<any> {
     return this.http

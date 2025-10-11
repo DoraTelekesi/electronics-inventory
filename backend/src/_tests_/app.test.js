@@ -175,16 +175,16 @@ describe("Spare Part API", () => {
       expect(res.statusCode).toBe(404);
       expect(res.body.message).toBe("Spare Part Not Found");
     });
-    // it("should return 401 if no token is provided", async () => {
-    //   const res = await request(app).get("/spare-part-list");
-    //   expect(res.statusCode).toBe(401);
-    //   expect(res.body.message).toMatch(/no token/i);
-    // });
+    it("should return 401 if no token is provided", async () => {
+      const res = await request(app).get("/spare-part-list");
+      expect(res.statusCode).toBe(401);
+      expect(res.body.message).toMatch(/no token/i);
+    });
 
-    // it("should return 403 if token is invalid", async () => {
-    //   const res = await request(app).get("/spare-part-list").set("Authorization", "Bearer invalidtoken");
-    //   expect(res.statusCode).toBe(403);
-    //   expect(res.body.message).toMatch(/invalid/i);
-    // });
+    it("should return 403 if token is invalid", async () => {
+      const res = await request(app).get("/spare-part-list").set("Authorization", "Bearer invalidtoken");
+      expect(res.statusCode).toBe(403);
+      expect(res.body.message).toMatch(/invalid/i);
+    });
   });
 });

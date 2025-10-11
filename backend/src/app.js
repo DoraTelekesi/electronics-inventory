@@ -12,7 +12,7 @@ import cors from "cors";
 const app = express();
 app.use(
   cors({
-    // origin: "http://localhost:4200", // your Angular dev URL
+    // origin: "http://localhost:4200", //  Angular dev URL
     // credentials: true,
     // allowedHeaders: ["Content-Type", "Authorization"],
     // methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // if using cookies or auth headers
