@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div
+  class="content-wrap bg-zinc-900 h-full w-full flex justify-center items-center"
+>
+  <div
+    class="w-4/5 h-4/5 bg-gradient-to-b from-zinc-700 to-zinc-950/80 flex flex-col justify-center items-center"
+  >
+    <h1 class="text-5xl text-neutral-400 mb-20">Login</h1>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col gap-4 items-center justify-center"
+    >
+      <label class="text-neutral-400" for="email">E-mail</label>
+      <input type="email" id="email" name="email" formControlName="email" />
+      <label class="text-neutral-400" for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+      />
+      <button
+        class="bg-teal-800 text-neutral-400 p-2 rounded-sm border-solid border-slate-950 border-2"
+        type="submit"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>
