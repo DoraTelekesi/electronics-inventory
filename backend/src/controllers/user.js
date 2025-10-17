@@ -36,9 +36,17 @@ export const login = async (req, res, next) => {
       email: user.email,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+    
+    res.cookie("token", token, {
+      httpOnly:true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite:"Strict",
+      maxAge:60*60*1000,
+    })
+    
     res.status(200).json({
       message: "Login successful!",
-      token,
+    
       user: {
         id: user._id,
         username: user.username,
@@ -47,5 +55,19 @@ export const login = async (req, res, next) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
+  }
+};
+
+
+export const getCurrentUser = async (req, res) => {
+  try {
+    const token = req.cookies.token; // read JWT from cookie
+    if (!token) return res.status(401).json({ message: "Not logged in" });
+
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(payload.id).select("-password"); // exclude password
+    res.json(user);
+  } catch (err) {
+    res.status(401).json({ message: "Invalid or expired token", err });
   }
 };

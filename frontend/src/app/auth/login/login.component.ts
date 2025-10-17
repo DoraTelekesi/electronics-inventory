@@ -6,6 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
+import { LoginUser } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +18,30 @@ import {
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
   loginForm = this.formBuilder.group({
-    email:['', [Validators.required, Validators.email]],
-    password:['', Validators.required]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
   });
 
-  onSubmit() {}
+  onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    const credentials: LoginUser = this.loginForm.value as LoginUser;
+
+    this.authService.login(credentials).subscribe({
+      next: (user) => {
+        console.log('Logged in user:', user);
+        this.router.navigate(['/dashboard']); 
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert('Invalid email or password');
+      },
+    });
+  }
 }

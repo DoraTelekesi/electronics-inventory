@@ -2,12 +2,12 @@ import express from "express";
 import validateSparePart from "../middleware/validateSparePart.js";
 import catchAsync from "../utils/catchAsync.js";
 
-import authenticateToken from "../middleware/authMiddleware.js";
+import authenticateCookie from "../middleware/authMiddleware.js";
 import * as spareParts from "../controllers/spare-part.js";
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(authenticateCookie);
 
 router.route("/").get(catchAsync(spareParts.renderAllSpareParts)).post(validateSparePart, catchAsync(spareParts.createSpareParts));
 

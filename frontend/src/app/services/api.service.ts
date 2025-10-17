@@ -12,7 +12,9 @@ export class ApiService {
   constructor(private http: HttpClient) {}
   getSparePartList(): Observable<any> {
     return this.http
-      .get<{ message: string; spareParts: any[] }>(this.apiUrl)
+      .get<{ message: string; spareParts: any[] }>(this.apiUrl, {
+        withCredentials: true,
+      })
       .pipe(map((res) => res.spareParts));
   }
 }

@@ -8,12 +8,13 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import sanitizeV5 from "./utils/mongoSanitizeV5.js";
 import cors from "cors";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(
   cors({
-    // origin: "http://localhost:4200", //  Angular dev URL
-    // credentials: true,
+    origin: "http://localhost:4200", //  Angular dev URL
+    credentials: true,
     // allowedHeaders: ["Content-Type", "Authorization"],
     // methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // if using cookies or auth headers
   })
@@ -22,6 +23,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 //for json - raw data -->
 app.use(express.json());
+
+app.use(cookieParser())
 
 app.use(sanitizeV5({ replaceWith: "_" }));
 app.use(
