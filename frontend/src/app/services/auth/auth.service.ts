@@ -10,7 +10,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000/login';
 
   private userSubject = new BehaviorSubject<User | null>(null);
-  user$ = this.userSubject.asObservable(); 
+  user$ = this.userSubject.asObservable();
   constructor(private http: HttpClient) {}
 
   login(credentials: LoginUser): Observable<User> {
@@ -26,6 +26,18 @@ export class AuthService {
         map((res) => res.user)
       );
   }
+
+
+logout():Observable<void> {
+  return this.http.post<void>('http://localhost:3000/logout', {}, {withCredentials:true})
+  .pipe(
+    tap(()=> {
+      this.userSubject.next(null);
+      console.log("User logged out");
+    })
+  );
+}
+
 
   getCurrentUser(): Observable<User> {
     return this.http

@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/ci-setup
+      - feature/frontend-setup
   pull_request:
     branches:
       - main

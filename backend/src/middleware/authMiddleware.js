@@ -21,7 +21,14 @@ import ExpressError from "../utils/ExpressError.js";
 
 
 const authenticateCookie = (req,res,next) => {
-  const token = req.cookies?.token;
+  let token = req.cookies?.token;
+
+  // if(!token && req.headers.authorization) {
+  //   const authHeader = req.headers.authorization;
+  //   if (authHeader.startsWith("Bearer ")) {
+  //     token = authHeader.split(" ")[1];
+  //   }
+  // }
 
   if (!token) {
     return next(new ExpressError("Access denied. No token provided", 401));

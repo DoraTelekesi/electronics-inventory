@@ -20,8 +20,13 @@ router
   })
   .post(validateUser(userLoginSchema), users.login);
 
-router.route("/logout").get((req, res) => {
-  res.send("logout page");
+router.route("/logout").post((req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 router.get("/me", getCurrentUser);

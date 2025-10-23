@@ -7,7 +7,7 @@ import SparePart from "../models/spare-part.js";
 // import router from "../routes/spare-part.js";
 
 let mongoServer;
-let token;
+let cookies;
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -25,9 +25,17 @@ beforeAll(async () => {
     password: "password123",
   });
   expect(res.status).toBe(200);
-  expect(res.body.token).toBeDefined();
-  token = res.body.token;
-  console.log("Test token:", token);
+  cookies = res.headers["set-cookie"];
+  expect(cookies).toBeDefined();
+
+  // const tokenCookie = cookies.find((c) => c.startsWith('token='));
+  // expect(tokenCookie).toBeTruthy();
+
+  // token = tokenCookie.split(";")[0].split('=')[1];
+
+  // expect(res.body.token).toBeDefined();
+  // token = res.body.token;
+  // console.log("Test token:", token);
 });
 
 afterAll(async () => {
@@ -50,7 +58,7 @@ describe("Spare Part API", () => {
         amount: 5,
         remarks: "test remark",
       };
-      const res = await request(app).post("/spare-part-list").set("Authorization", `Bearer ${token}`).send(data);
+      const res = await request(app).post("/spare-part-list").set("Cookie", cookies).send(data);
       expect(res.statusCode).toBe(201);
       expect(res.body.message).toBe("New item added");
       const parts = await SparePart.find({});
@@ -66,7 +74,7 @@ describe("Spare Part API", () => {
         depot: "Main",
         amount: 5,
       });
-      const res = await request(app).get("/spare-part-list").set("Authorization", `Bearer ${token}`);
+      const res = await request(app).get("/spare-part-list").set("Cookie", cookies);
       expect(res.statusCode).toBe(200);
       expect(res.body.spareParts.length).toBe(1);
       expect(res.body.spareParts[0].manufacturer).toBe("Bosch");
@@ -80,7 +88,7 @@ describe("Spare Part API", () => {
         depot: "Main",
         amount: 5,
       });
-      const res = await request(app).get(`/spare-part-list/${part._id}`).set("Authorization", `Bearer ${token}`);
+      const res = await request(app).get(`/spare-part-list/${part._id}`).set("Cookie", cookies);
       expect(res.statusCode).toBe(200);
       expect(res.body.sparePart.model).toBe("X123");
     });
@@ -93,7 +101,7 @@ describe("Spare Part API", () => {
         depot: "Main",
         amount: 5,
       });
-      const res = await request(app).delete(`/spare-part-list/${part._id}`).set("Authorization", `Bearer ${token}`);
+      const res = await request(app).delete(`/spare-part-list/${part._id}`).set("Cookie", cookies);
       expect(res.statusCode).toBe(200);
       expect(res.body.message).toContain("deleted");
       const parts = await SparePart.find({});
@@ -111,7 +119,7 @@ describe("Spare Part API", () => {
       const res = await request(app)
         .put(`/spare-part-list/${part._id}`)
         .send({ manufacturer: "Bosch", model: "X123", type: "Filter", depot: "Main", amount: 10 })
-        .set("Authorization", `Bearer ${token}`);
+        .set("Cookie", cookies);
       expect(res.statusCode).toBe(200);
       expect(res.body.message).toContain("updated");
       const updatedItem = await SparePart.findById({ _id: part._id });
@@ -121,28 +129,28 @@ describe("Spare Part API", () => {
 
   describe("Error cases", () => {
     it("should return 404 if no items is in the list", async () => {
-      const res = await request(app).get("/spare-part-list").set("Authorization", `Bearer ${token}`);
+      const res = await request(app).get("/spare-part-list").set("Cookie", cookies);
       expect(res.statusCode).toBe(404);
       expect(res.body.message).toBe("No Spare Parts in the List");
     });
 
     it("should return 404 if item is not found", async () => {
       const fakeId = new mongoose.Types.ObjectId();
-      const res = await request(app).get(`/spare-part-list/${fakeId}`).set("Authorization", `Bearer ${token}`);
+      const res = await request(app).get(`/spare-part-list/${fakeId}`).set("Cookie", cookies);
       expect(res.statusCode).toBe(404);
       expect(res.body.message).toBe("Spare Part Not Found");
     });
 
     it("should return 404 if item is not found for edit", async () => {
       const fakeId = new mongoose.Types.ObjectId();
-      const res = await request(app).get(`/spare-part-list/${fakeId}/edit`).set("Authorization", `Bearer ${token}`);
+      const res = await request(app).get(`/spare-part-list/${fakeId}/edit`).set("Cookie", cookies);
       expect(res.statusCode).toBe(404);
       expect(res.body.message).toBe("Spare Part Not Found");
     });
 
     it("should return 404 if PUT /:id item is not found", async () => {
       const fakeId = new mongoose.Types.ObjectId();
-      const res = await request(app).put(`/spare-part-list/${fakeId}`).set("Authorization", `Bearer ${token}`).send({
+      const res = await request(app).put(`/spare-part-list/${fakeId}`).set("Cookie", cookies).send({
         manufacturer: "Test",
         model: "TestModel",
         type: "TestType",
@@ -164,14 +172,14 @@ describe("Spare Part API", () => {
       const res = await request(app)
         .put(`/spare-part-list/${part._id}`)
         .send({ manufacturer: "Bosch", model: "X123", type: 256, depot: "Main", amount: 2 })
-        .set("Authorization", `Bearer ${token}`);
+        .set("Cookie", cookies);
       expect(res.statusCode).toBe(400);
       expect(res.body.message).toBe('"type" must be a string');
     });
 
     it("should return 404 if DELETE :/id is not found", async () => {
       const fakeId = new mongoose.Types.ObjectId();
-      const res = await request(app).delete(`/spare-part-list/${fakeId}`).set("Authorization", `Bearer ${token}`);
+      const res = await request(app).delete(`/spare-part-list/${fakeId}`).set("Cookie", cookies);
       expect(res.statusCode).toBe(404);
       expect(res.body.message).toBe("Spare Part Not Found");
     });
@@ -182,7 +190,8 @@ describe("Spare Part API", () => {
     });
 
     it("should return 403 if token is invalid", async () => {
-      const res = await request(app).get("/spare-part-list").set("Authorization", "Bearer invalidtoken");
+      const invalidCookies = cookies.map((c) => c.replace(/token=[^;]+/, "token=invalidtoken"));
+      const res = await request(app).get("/spare-part-list").set("Cookie", invalidCookies);
       expect(res.statusCode).toBe(403);
       expect(res.body.message).toMatch(/invalid/i);
     });

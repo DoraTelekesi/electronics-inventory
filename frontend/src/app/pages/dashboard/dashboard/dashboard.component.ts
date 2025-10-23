@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../interfaces/user';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -11,9 +13,20 @@ import { User } from '../../../interfaces/user';
 export class DashboardComponent {
   user: User | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authService.user$.subscribe((u) => (this.user = u));
+  }
+
+  onLogout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Logout failed', err);
+      },
+    });
   }
 }
