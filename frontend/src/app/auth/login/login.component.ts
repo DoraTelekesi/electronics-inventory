@@ -7,13 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginUser } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -36,11 +36,10 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: (user) => {
         console.log('Logged in user:', user);
-        this.router.navigate(['/dashboard']); 
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error('Login failed:', err);
-        alert('Invalid email or password');
       },
     });
   }
