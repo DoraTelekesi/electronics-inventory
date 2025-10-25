@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../interfaces/user';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  user: User | null = null;
+  user$: Observable<User | null>;
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit() {
-    this.authService.user$.subscribe((u) => (this.user = u));
+  constructor(private authService: AuthService, private router: Router) {
+    this.user$ = authService.user$;
   }
+
 
   onLogout() {
     this.authService.logout().subscribe({

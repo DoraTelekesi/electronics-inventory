@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MainComponent } from './main/main.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
@@ -9,15 +9,8 @@ import { AuthService } from './services/auth/auth.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'frontend';
 
-  constructor(private authService: AuthService){}
-
-  ngOnInit() {
-    this.authService.getCurrentUser().subscribe({
-      next: (user) => console.log('Restored user:', user),
-      error: () => console.log('No user logged in'),
-    });
-  }
+  constructor(private authService: AuthService) {}
 }

@@ -1,1 +1,39 @@
-<p>spare-part-list works!</p>
+<div class="content h-full w-full flex flex-col items-center">
+  <header
+    class="w-full bg-zinc-900 h-24 flex justify-between items-center p-5 m-0"
+  >
+    <p *ngIf="user$ | async as user" class="text-neutral-400">
+      {{ user.username }}
+    </p>
+    <button class="bg-teal-800 p-2 text-neutral-400" (click)="onLogout()">
+      Logout
+    </button>
+  </header>
+  <div
+    class="main w-4/5 h-full bg-gradient-to-b from-neutral-950/90 to-stone-500/50 flex flex-col justify-center items-center rounded-lg"
+  >
+    <h1 class="text-5xl text-neutral-400 mb-20">Spare Parts</h1>
+    <div class="bg-slate-50 h-full">
+      <thead>
+        <th>Manufacturer</th>
+        <th>Model</th>
+        <th>Type</th>
+        <th>Depot</th>
+        <th>Amount</th>
+        <th>Remarks</th>
+      </thead>
+      @for(sparePart of sparePartList$ | async; track sparePart) {
+      <table class="table-fixed border-collapse border">
+        <tbody>
+          <th>{{ sparePart.manufacturer }}</th>
+          <td>{{ sparePart.model }}</td>
+          <td>{{ sparePart.type }}</td>
+          <td>{{ sparePart.depot }}</td>
+          <td>{{ sparePart.amount }}</td>
+          <td>{{ sparePart.remarks }}</td>
+        </tbody>
+      </table>
+      }
+    </div>
+  </div>
+</div>
