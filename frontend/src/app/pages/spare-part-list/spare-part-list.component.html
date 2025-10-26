@@ -1,39 +1,51 @@
-<div class="content h-full w-full flex flex-col items-center">
-  <header
-    class="w-full bg-zinc-900 h-24 flex justify-between items-center p-5 m-0"
-  >
+<div
+  class="content h-full w-full flex flex-col items-center bg-gradient-to-b from-neutral-950/90 to-stone-500/50"
+>
+  <header class="w-full h-20 flex justify-between items-center p-5 m-0">
     <p *ngIf="user$ | async as user" class="text-neutral-400">
       {{ user.username }}
     </p>
-    <button class="bg-teal-800 p-2 text-neutral-400" (click)="onLogout()">
+    <button
+      class="p-2 text-neutral-400 border border-solid rounded-sm"
+      (click)="onLogout()"
+    >
       Logout
     </button>
   </header>
-  <div
-    class="main w-4/5 h-full bg-gradient-to-b from-neutral-950/90 to-stone-500/50 flex flex-col justify-center items-center rounded-lg"
-  >
-    <h1 class="text-5xl text-neutral-400 mb-20">Spare Parts</h1>
-    <div class="bg-slate-50 h-full">
-      <thead>
-        <th>Manufacturer</th>
-        <th>Model</th>
-        <th>Type</th>
-        <th>Depot</th>
-        <th>Amount</th>
-        <th>Remarks</th>
-      </thead>
-      @for(sparePart of sparePartList$ | async; track sparePart) {
-      <table class="table-fixed border-collapse border">
+  <div class="main w-full h-full flex flex-col justify-center rounded-lg">
+    <h1 class="text-5xl text-neutral-400 my-20 text-left">Spare Parts</h1>
+    <div class="h-full w-full mb-20">
+      <table
+        class="bg-slate-50 table border-2 border-solid border-black w-full"
+      >
+        <thead class="bg-stone-800">
+          <th class="text-neutral-400">Manufacturer</th>
+          <th class="text-neutral-400">Model</th>
+          <th class="text-neutral-400">Type</th>
+          <th class="text-neutral-400">Depot</th>
+          <th class="text-neutral-400">Amount</th>
+          <th class="text-neutral-400">Remarks</th>
+          <th class="text-neutral-400">Action</th>
+        </thead>
+
         <tbody>
-          <th>{{ sparePart.manufacturer }}</th>
-          <td>{{ sparePart.model }}</td>
-          <td>{{ sparePart.type }}</td>
-          <td>{{ sparePart.depot }}</td>
-          <td>{{ sparePart.amount }}</td>
-          <td>{{ sparePart.remarks }}</td>
+          <tr
+            *ngFor="let sparePart of sparePartList$ | async; let i = index"
+            class="px-2"
+          >
+            <th>{{ sparePart.manufacturer }}</th>
+            <td>{{ sparePart.model }}</td>
+            <td>{{ sparePart.type }}</td>
+            <td>{{ sparePart.depot }}</td>
+            <td>{{ sparePart.amount }}</td>
+            <td>{{ sparePart.remarks }}</td>
+            <td class="flex justify-evenly">
+              <button class="p-2 bg-teal-600 rounded-md">Edit</button>
+              <button class="p-2 bg-red-600 rounded-md">Delete</button>
+            </td>
+          </tr>
         </tbody>
       </table>
-      }
     </div>
   </div>
 </div>

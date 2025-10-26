@@ -46,10 +46,7 @@ export class AuthService {
       })
       .pipe(
         tap((res) => {
-          console.log('Raw login response:', res);
-          this.userSubject.next(res.user);
-          this.userLoaded = true;
-          this.currentUserRequest$ = null;
+          console.log('Registration response:', res);
         }),
         map((res) => res.user)
       );

@@ -1,5 +1,15 @@
 .content {
-  background-image: url("/assets/img/bg.jpg");
+  background-image: url("/assets/img/bg-3.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+}
+
+tr:nth-of-type(even) {
+  background-color: rgb(211, 212, 216);
 }
