@@ -15,7 +15,12 @@
   <div class="main w-full h-full flex flex-col justify-center rounded-lg">
     <div class="flex justify-between m-20">
       <h1 class="text-5xl text-neutral-400">Spare Parts</h1>
-      <button [routerLink]="['/add-item']" class="text-neutral-400 p-2 rounded-sm border border-white">Add new item</button>
+      <button
+        [routerLink]="['/add-item']"
+        class="text-neutral-400 p-2 rounded-sm border border-white"
+      >
+        Add new item
+      </button>
     </div>
     <div class="h-full w-full mb-20">
       <table
@@ -44,7 +49,9 @@
             <td>{{ sparePart.remarks }}</td>
             <td class="flex justify-evenly">
               <button class="p-2 bg-teal-600 rounded-md">Edit</button>
-              <button class="p-2 bg-red-600 rounded-md">Delete</button>
+              <button (click)="onDelete(sparePart._id)" class="p-2 bg-red-600 rounded-md">
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>

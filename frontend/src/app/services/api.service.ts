@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs';
-import { SparePart } from '../interfaces/spare-part';
+import { CreateSparePart, SparePart } from '../interfaces/spare-part';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +19,20 @@ export class ApiService {
       .pipe(map((res) => res.spareParts));
   }
 
-  createSparePart(entries:SparePart): Observable<SparePart[]> {
+  createSparePart(entries: CreateSparePart): Observable<CreateSparePart[]> {
     return this.http
-      .post<{ message: String; sparePart: SparePart[] }>(this.apiUrl, entries, {
+      .post<{ message: String; sparePart: CreateSparePart[] }>(this.apiUrl, entries, {
         withCredentials: true,
       })
+      .pipe(map((res) => res.sparePart));
+  }
+
+  deleteSparePart(id: string): Observable<SparePart[]> {
+    return this.http
+      .delete<{ message: String; sparePart: SparePart[] }>(
+        `${this.apiUrl}/${id}`,
+        { withCredentials: true }
+      )
       .pipe(map((res) => res.sparePart));
   }
 }

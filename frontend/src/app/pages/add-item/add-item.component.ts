@@ -11,7 +11,7 @@ import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-add-item',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.scss',
 })
