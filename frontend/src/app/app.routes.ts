@@ -5,6 +5,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
 import { SparePartListComponent } from './pages/spare-part-list/spare-part-list.component';
+import { AddItemComponent } from './pages/add-item/add-item.component';
 
 export const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -18,6 +19,11 @@ export const routes: Routes = [
   {
     path: 'spare-part-list',
     component: SparePartListComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'add-item',
+    component: AddItemComponent,
     canActivate: [authGuard],
   },
 ];

@@ -10,13 +10,20 @@ import { SparePart } from '../interfaces/spare-part';
 export class ApiService {
   private apiUrl = 'http://localhost:3000/spare-part-list';
 
-
   constructor(private http: HttpClient) {}
-  getSparePartList():Observable<SparePart[]> {
+  getSparePartList(): Observable<SparePart[]> {
     return this.http
       .get<{ message: string; spareParts: SparePart[] }>(this.apiUrl, {
         withCredentials: true,
       })
-      .pipe(map((res) => res.spareParts))
-    }
+      .pipe(map((res) => res.spareParts));
+  }
+
+  createSparePart(entries:SparePart): Observable<SparePart[]> {
+    return this.http
+      .post<{ message: String; sparePart: SparePart[] }>(this.apiUrl, entries, {
+        withCredentials: true,
+      })
+      .pipe(map((res) => res.sparePart));
+  }
 }

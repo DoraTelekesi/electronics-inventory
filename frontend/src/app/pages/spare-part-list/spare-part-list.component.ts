@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { SparePart } from '../../interfaces/spare-part';
 import { ApiService } from '../../services/api.service';
@@ -10,7 +10,7 @@ import { shareReplay, Observable } from 'rxjs';
 @Component({
   selector: 'app-spare-part-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './spare-part-list.component.html',
   styleUrl: './spare-part-list.component.scss',
 })
