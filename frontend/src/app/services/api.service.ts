@@ -21,9 +21,13 @@ export class ApiService {
 
   createSparePart(entries: CreateSparePart): Observable<CreateSparePart[]> {
     return this.http
-      .post<{ message: String; sparePart: CreateSparePart[] }>(this.apiUrl, entries, {
-        withCredentials: true,
-      })
+      .post<{ message: String; sparePart: CreateSparePart[] }>(
+        this.apiUrl,
+        entries,
+        {
+          withCredentials: true,
+        }
+      )
       .pipe(map((res) => res.sparePart));
   }
 
@@ -31,6 +35,27 @@ export class ApiService {
     return this.http
       .delete<{ message: String; sparePart: SparePart[] }>(
         `${this.apiUrl}/${id}`,
+        { withCredentials: true }
+      )
+      .pipe(map((res) => res.sparePart));
+  }
+
+  showSparePart(id: String): Observable<SparePart> {
+    return this.http
+      .get<{ message: string; sparePart: SparePart }>(
+        `${this.apiUrl}/${id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .pipe(map((res) => res.sparePart));
+  }
+
+  editSparePart(id: String, entries:Partial<CreateSparePart>): Observable<SparePart[]> {
+    return this.http
+      .put<{ message: String; sparePart: SparePart[] }>(
+        `${this.apiUrl}/${id}`,
+        entries,
         { withCredentials: true }
       )
       .pipe(map((res) => res.sparePart));

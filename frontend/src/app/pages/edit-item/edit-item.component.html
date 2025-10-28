@@ -1,0 +1,77 @@
+<div
+  class="content h-full w-full flex flex-col items-center bg-gradient-to-b from-neutral-950/90 to-stone-500/50"
+>
+  <header class="w-full h-20 flex justify-between items-center p-5 m-0">
+    <p *ngIf="user$ | async as user" class="text-neutral-400">
+      {{ user.username }}
+    </p>
+    <button
+      class="p-2 text-neutral-400 border border-solid rounded-sm"
+      (click)="onLogout()"
+    >
+      Logout
+    </button>
+  </header>
+
+  <div
+    class="w-4/5 h-4/5 bg-gradient-to-b from-neutral-950/90 to-stone-500/50 flex justify-evenly rounded-lg"
+  >
+    <div class="flex flex-col mt-20">
+      <div class="flex items-center gap-2">
+        <img
+          [routerLink]="['/spare-part-list']"
+          src="/assets/icon/arrow.png"
+          class="rotate-180 w-16 invert hover:-translate-x-5 transition-all cursor-pointer"
+          alt="go back arrow"
+        />
+        <!-- <p class="text-neutral-400 m-0">Go Back</p> -->
+      </div>
+
+      <h1 class="text-5xl text-neutral-400 mt-20">Edit item</h1>
+    </div>
+
+    <form
+      [formGroup]="editItemForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col gap-4"
+    >
+      <label class="text-neutral-400" for="manufacturer">Manufacturer</label>
+      <input
+        type="text"
+        id="manufacturer"
+        name="manufacturer"
+        formControlName="manufacturer"
+      />
+
+      <label class="text-neutral-400" for="">Model</label>
+      <input type="text" id="model" name="model" formControlName="model" />
+
+      <label class="text-neutral-400" for="type">Type</label>
+      <input type="text" id="type" name="type" formControlName="type" />
+
+      <label class="text-neutral-400" for="depot">Depot</label>
+      <input type="text" id="depot" name="depot" formControlName="depot" />
+
+      <label class="text-neutral-400" for="amount">Amount</label>
+      <input
+        type="number"
+        min="1"
+        id="amount"
+        name="amount"
+        formControlName="amount"
+      />
+
+      <label class="text-neutral-400" for="remarks">Remarks</label>
+      <input
+        type="text"
+        id="remarks"
+        name="remarks"
+        formControlName="remarks"
+      />
+
+      <button type="submit" class="bg-teal-800 text-neutral-400 p-2">
+        Edit Item
+      </button>
+    </form>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../interfaces/user';
-import { SparePart} from '../../interfaces/spare-part';
+import { SparePart } from '../../interfaces/spare-part';
 import { ApiService } from '../../services/api.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { shareReplay, Observable, BehaviorSubject } from 'rxjs';
@@ -51,6 +51,10 @@ export class SparePartListComponent implements OnInit {
       },
     });
   }
+
+  // onEdit(id: string) {
+  //   console.log(id);
+  // }
 
   onLogout() {
     this.authService.logout().subscribe({

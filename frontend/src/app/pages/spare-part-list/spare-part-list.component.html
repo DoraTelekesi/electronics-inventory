@@ -48,7 +48,7 @@
             <td>{{ sparePart.amount }}</td>
             <td>{{ sparePart.remarks }}</td>
             <td class="flex justify-evenly">
-              <button class="p-2 bg-teal-600 rounded-md">Edit</button>
+              <button [routerLink]="['/spare-part-list', sparePart._id]"class="p-2 bg-teal-600 rounded-md">Edit</button>
               <button (click)="onDelete(sparePart._id)" class="p-2 bg-red-600 rounded-md">
                 Delete
               </button>
