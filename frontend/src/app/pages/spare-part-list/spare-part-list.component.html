@@ -6,7 +6,7 @@
       {{ user.username }}
     </p>
     <button
-      class="p-2 text-neutral-400 border border-solid rounded-sm"
+      class="p-2 text-neutral-400 border border-solid rounded-sm hover:bg-indigo-500/40"
       (click)="onLogout()"
     >
       Logout
@@ -34,7 +34,7 @@
 
       <button
         [routerLink]="['/add-item']"
-        class="text-neutral-400 p-2 rounded-sm border border-white"
+        class="text-neutral-400 p-2 rounded-sm border border-white hover:bg-indigo-500/40"
       >
         Add new item
       </button>
