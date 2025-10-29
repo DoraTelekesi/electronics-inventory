@@ -1,0 +1,43 @@
+<div class="content bg-gradient-to-b from-neutral-950 to-stone-500/70 p-10 mx-10 rounded-md">
+  <form class="flex flex-col justify-center items-center gap-10">
+    <div class="flex gap-20">
+      <label class="text-neutral-400" for="manufacturer">Manufacturer</label>
+      <input
+        type="text"
+        id="manufacturer"
+        name="manufacturer"
+        formControlName="manufacturer"
+      />
+
+      <label class="text-neutral-400" for="">Model</label>
+      <input type="text" id="model" name="model" formControlName="model" />
+
+      <label class="text-neutral-400" for="type">Type</label>
+      <input type="text" id="type" name="type" formControlName="type" />
+    </div>
+    <div  class="flex gap-20">
+      <label class="text-neutral-400" for="depot">Depot</label>
+      <input type="text" id="depot" name="depot" formControlName="depot" />
+
+      <label class="text-neutral-400" for="amount">Amount</label>
+      <input
+        type="number"
+        min="1"
+        id="amount"
+        name="amount"
+        formControlName="amount"
+      />
+
+      <label class="text-neutral-400" for="remarks">Remarks</label>
+      <input
+        type="text"
+        id="remarks"
+        name="remarks"
+        formControlName="remarks"
+      />
+    </div>
+    <button type="submit" class="p-2 text-neutral-400 bg-black border border-solid rounded-sm">
+      Filter
+    </button>
+  </form>
+</div>

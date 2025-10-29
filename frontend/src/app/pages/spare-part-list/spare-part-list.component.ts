@@ -6,11 +6,12 @@ import { SparePart } from '../../interfaces/spare-part';
 import { ApiService } from '../../services/api.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { shareReplay, Observable, BehaviorSubject } from 'rxjs';
+import { FilterSparePartComponent } from '../../filter-spare-part/filter-spare-part.component';
 
 @Component({
   selector: 'app-spare-part-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FilterSparePartComponent],
   templateUrl: './spare-part-list.component.html',
   styleUrl: './spare-part-list.component.scss',
 })
@@ -18,6 +19,7 @@ export class SparePartListComponent implements OnInit {
   user$: Observable<User | null>;
   sparePartList$ = new BehaviorSubject<SparePart[]>([]);
   // sparePartList$ = this.api.getSparePartList().pipe(shareReplay(1));
+  filterOpened = true;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -65,5 +67,13 @@ export class SparePartListComponent implements OnInit {
         console.error('Logout failed', err);
       },
     });
+  }
+
+  toggleFilterPanel(){
+    if(this.filterOpened){
+      this.filterOpened = false;
+    } else {
+      this.filterOpened=true;
+    }
   }
 }
