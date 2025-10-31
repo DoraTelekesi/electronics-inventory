@@ -1,5 +1,5 @@
 <div class="content bg-gradient-to-b from-neutral-950 to-stone-500/70 p-10 mx-10 rounded-md">
-  <form class="flex flex-col justify-center items-center gap-10">
+  <form [formGroup]= "filterForm" (ngSubmit)="onSubmit()" class="flex flex-col justify-center items-center gap-10">
     <div class="flex gap-20">
       <label class="text-neutral-400" for="manufacturer">Manufacturer</label>
       <input
@@ -38,6 +38,9 @@
     </div>
     <button type="submit" class="p-2 text-neutral-400 bg-black border border-solid rounded-sm">
       Filter
+    </button>
+    <button (click)="clearFilter()"class="text-neutral-400 bg-black p-2 rounded-sm">
+      Clear
     </button>
   </form>
 </div>

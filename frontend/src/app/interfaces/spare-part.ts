@@ -16,3 +16,12 @@ export interface SparePart {
   amount: number;
   remarks?: string;
 }
+
+export interface FilterSparePart {
+  manufacturer?: string;
+  model?: string;
+  type?: string;
+  depot?: string;
+  amount?: number;
+  remarks?: string;
+}

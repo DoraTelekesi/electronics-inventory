@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../interfaces/user';
-import { SparePart } from '../../interfaces/spare-part';
+import { SparePart, FilterSparePart } from '../../interfaces/spare-part';
 import { ApiService } from '../../services/api.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { shareReplay, Observable, BehaviorSubject } from 'rxjs';
@@ -20,6 +20,9 @@ export class SparePartListComponent implements OnInit {
   sparePartList$ = new BehaviorSubject<SparePart[]>([]);
   // sparePartList$ = this.api.getSparePartList().pipe(shareReplay(1));
   filterOpened = true;
+  filteredItem!: FilterSparePart;
+  isFiltered = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -28,14 +31,57 @@ export class SparePartListComponent implements OnInit {
     this.user$ = authService.user$;
   }
 
+  receiveFromFilter(item: FilterSparePart) {
+    this.filteredItem = item;
+    console.log(this.filteredItem.manufacturer);
+    this.isFiltered = true;
+    this.loadSpareParts();
+  }
+
+  clearFilter() {
+    this.isFiltered = false;
+    this.loadSpareParts();
+  }
+
   ngOnInit(): void {
     this.loadSpareParts();
   }
 
   loadSpareParts() {
-    this.api
-      .getSparePartList()
-      .subscribe((list) => this.sparePartList$.next(list));
+    this.api.getSparePartList().subscribe((list) => {
+      if (this.isFiltered) {
+        let filtered = list.filter((part) => {
+          return (
+            (!this.filteredItem.manufacturer ||
+              part.manufacturer
+                .toLowerCase()
+                .includes(this.filteredItem.manufacturer.toLowerCase())) &&
+            (!this.filteredItem.model ||
+              part.model
+                .toLowerCase()
+                .includes(this.filteredItem.model.toLowerCase())) &&
+            (!this.filteredItem.type ||
+              part.type
+                .toLowerCase()
+                .includes(this.filteredItem.type.toLowerCase())) &&
+            (!this.filteredItem.amount ||
+              part.amount === this.filteredItem.amount) &&
+            (!this.filteredItem.depot ||
+              part.depot
+                .toLowerCase()
+                .includes(this.filteredItem.depot.toLowerCase())) &&
+            (!this.filteredItem.remarks ||
+              (part.remarks &&
+                part.remarks
+                  .toLowerCase()
+                  .includes(this.filteredItem.remarks.toLowerCase())))
+          );
+        });
+        this.sparePartList$.next(filtered);
+      } else {
+        this.sparePartList$.next(list);
+      }
+    });
   }
 
   onDelete(id: string) {
@@ -69,11 +115,11 @@ export class SparePartListComponent implements OnInit {
     });
   }
 
-  toggleFilterPanel(){
-    if(this.filterOpened){
+  toggleFilterPanel() {
+    if (this.filterOpened) {
       this.filterOpened = false;
     } else {
-      this.filterOpened=true;
+      this.filterOpened = true;
     }
   }
 }

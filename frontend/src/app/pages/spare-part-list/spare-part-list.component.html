@@ -41,7 +41,7 @@
 
     </div>
     <div *ngIf="filterOpened" class="filter-section">
-      <app-filter-spare-part></app-filter-spare-part>
+      <app-filter-spare-part (searchedItem)="receiveFromFilter($event)" (clearedFilter)="clearFilter()"></app-filter-spare-part>
     </div>
     <div class="table-section h-full w-full mb-20 mt-10">
       <table
