@@ -1,5 +1,13 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// `npm run dev` runs from `backend/`, so the default only loads `backend/.env`.
+// Your keys live in `backend/src/.env` — load that (and optional `backend/.env`).
+dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
+
 import mongoose from "mongoose";
 import app from "./app.js";
 
