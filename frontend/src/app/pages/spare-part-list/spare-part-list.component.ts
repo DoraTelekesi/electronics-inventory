@@ -19,14 +19,14 @@ export class SparePartListComponent implements OnInit {
   user$: Observable<User | null>;
   sparePartList$ = new BehaviorSubject<SparePart[]>([]);
   // sparePartList$ = this.api.getSparePartList().pipe(shareReplay(1));
-  filterOpened = true;
+  filterOpened = false;
   filteredItem!: FilterSparePart;
   isFiltered = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    public api: ApiService
+    public api: ApiService,
   ) {
     this.user$ = authService.user$;
   }
@@ -90,7 +90,7 @@ export class SparePartListComponent implements OnInit {
       next: (item) => {
         console.log('Successfully deleted', item);
         const updatedList = this.sparePartList$.value.filter(
-          (item) => item._id != id
+          (item) => item._id != id,
         );
         this.sparePartList$.next(updatedList);
       },
