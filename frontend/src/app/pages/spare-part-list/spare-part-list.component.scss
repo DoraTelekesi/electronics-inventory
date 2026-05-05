@@ -5,13 +5,25 @@
   background-position: center;
 }
 table {
-  font-size:16px;
-}
-th,
-td {
-  border: 1px solid #ff6902;
+  font-size: 16px;
 }
 
 tr {
   background-color: rgb(0, 0, 0);
+}
+
+thead tr > th {
+  border-bottom: 2px solid rgb(73, 22, 0);
+}
+thead tr:first-child > th {
+  border-bottom: 2px solid rgb(121, 37, 0);
+}
+tbody tr > th,
+tbody tr > td {
+  border-bottom: 1px solid rgb(73, 22, 0);
+}
+
+tbody tr:last-child > th,
+tbody tr:last-child > td {
+  border-bottom: none;
 }
