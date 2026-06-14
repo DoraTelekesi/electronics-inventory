@@ -1,9 +1,14 @@
 <div
-  class="content-wrap bg-zinc-900 h-full w-full flex justify-center items-center"
+  class="content-wrap bg-neutral-950 h-full w-full flex justify-center items-center"
 >
+  <canvas #canvasBox class="canvas"></canvas>
+
+
   <div
-    class="w-4/5 h-4/5 bg-gradient-to-b from-neutral-950/90 to-stone-500/50 flex flex-col justify-center items-center rounded-lg"
+    class="z-10 bg-gradient-to-b flex flex-col justify-center items-center rounded-lg"
   >
+
+
     <h1 class="text-5xl text-neutral-400 mb-20">Login</h1>
     <form
       [formGroup]="loginForm"
@@ -20,7 +25,7 @@
         formControlName="password"
       />
       <button
-        class="bg-teal-800 text-neutral-400 p-2 rounded-sm border-solid border-slate-950 border-2"
+        class="text-neutral-400 p-2 rounded-sm border-solid border-[rgb(206,235,53)] border-2"
         type="submit"
       >
         Login
@@ -28,7 +33,7 @@
     </form>
     <button
       [routerLink]="['/register']"
-      class="bg-teal-800 text-neutral-400 p-2 rounded-sm border-solid border-slate-950 border-2"
+      class="text-neutral-400 p-2 rounded-sm border-solid border-[rgb(206,235,53)] border-2"
     >
       Signup
     </button>
