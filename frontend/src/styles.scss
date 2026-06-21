@@ -2,7 +2,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  font-family:"Orbitron", sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 @tailwind base;
@@ -42,6 +42,12 @@ html {
 @font-face {
   font-family: "Orbitron";
   src: url(assets/fonts/Orbitron/Orbitron-Medium.ttf);
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: "AmazDoom";
+  src: url(assets/fonts/AmazDoom/AmazDooMLeft2.ttf);
   font-weight: regular;
 }
 

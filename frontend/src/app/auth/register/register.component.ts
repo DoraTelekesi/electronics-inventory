@@ -1,8 +1,15 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { RegisterUser } from '../../interfaces/user';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ThreeService } from '../../services/three/three.service';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +18,12 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private threeService: ThreeService,
   ) {}
 
   registerForm = this.formBuilder.group({
@@ -23,6 +31,18 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
+
+  @ViewChild('canvasBox') canvasRef!: ElementRef<HTMLCanvasElement>;
+
+  ngAfterViewInit(): void {
+    if (this.canvasRef) {
+      this.threeService.init(this.canvasRef.nativeElement);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.threeService.dispose();
+  }
 
   onSubmit() {
     if (this.registerForm.invalid) return;
@@ -36,7 +56,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Registration failed:', err);
-      }
+      },
     });
   }
 }

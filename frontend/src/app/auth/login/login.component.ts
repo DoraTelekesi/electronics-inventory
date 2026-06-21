@@ -2,8 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 
 import {
   FormBuilder,
-  FormGroup,
-  FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';

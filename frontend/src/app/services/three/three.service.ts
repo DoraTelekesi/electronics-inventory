@@ -17,6 +17,8 @@ export class ThreeService {
     //add texture to sphere
     const textureLoader = new THREE.TextureLoader();
     const planetTexture = textureLoader.load('assets/img/8k_venus_surface.jpg');
+    const backgroundTexture = textureLoader.load('assets/img/galaxy_3.jpg');
+
     planetTexture.colorSpace = THREE.SRGBColorSpace;
     this.renderer = new THREE.WebGLRenderer({
       canvas: canvas,
@@ -25,6 +27,9 @@ export class ThreeService {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.scene = new THREE.Scene();
+
+backgroundTexture.colorSpace = THREE.SRGBColorSpace;
+    this.scene.background = backgroundTexture;
     this.camera = new THREE.PerspectiveCamera(
       35,
       window.innerWidth / window.innerHeight,

@@ -1,41 +1,44 @@
-<div
-  class="content-wrap bg-neutral-950 h-full w-full flex justify-center items-center"
->
+<div class="content-wrap bg-neutral-950 h-full w-full flex items-start gap-10">
   <canvas #canvasBox class="canvas"></canvas>
 
-
   <div
-    class="z-10 bg-gradient-to-b flex flex-col justify-center items-center rounded-lg"
+    class="z-10 bg-gradient-to-b h-full w-full flex justify-around rounded-lg p-10"
   >
-
-
-    <h1 class="text-5xl text-neutral-400 mb-20">Login</h1>
+    <h1
+      class="title tracking-wide text-7xl text-[rgb(254,254,254)] drop-shadow-[6px_6px_2px_rgb(142,24,24)]"
+    >
+      Login
+    </h1>
     <form
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
-      class="flex flex-col gap-4 items-center justify-center"
+      class="flex flex-col gap-4"
     >
-      <label class="text-neutral-400" for="email">E-mail</label>
-      <input type="email" id="email" name="email" formControlName="email" />
-      <label class="text-neutral-400" for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        formControlName="password"
-      />
-      <button
-        class="text-neutral-400 p-2 rounded-sm border-solid border-[rgb(206,235,53)] border-2"
-        type="submit"
-      >
-        Login
-      </button>
+      <div class="flex flex-col gap-4">
+        <label class="text-[rgb(248,249,244)]" for="email">E-mail</label>
+        <input type="email" id="email" name="email" formControlName="email" />
+        <label class="text-[rgb(248,249,244)]" for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+        />
+      </div>
+      <div class="flex gap-4 mt-10">
+        <button
+          class="text-[rgb(248,249,244)] p-2 rounded-sm border-solid border-[rgb(206,235,53)] border-2 bg-[rgb(56,60,43)] hover:bg-[rgb(235,142,48)] hover:border-[rgb(235,205,104)] hover:drop-shadow-[5px_5px_2px_rgb(153,87,42)]"
+          type="submit"
+        >
+          Login
+        </button>
+        <button
+          [routerLink]="['/register']"
+          class="text-[rgb(248,249,244)] p-2 rounded-sm border-solid border-[rgb(206,235,53)] border-2 bg-[rgb(56,60,43)] hover:bg-[rgb(235,142,48)] hover:border-[rgb(235,205,104)] hover:drop-shadow-[5px_5px_2px_rgb(153,87,42)]"
+        >
+          Signup
+        </button>
+      </div>
     </form>
-    <button
-      [routerLink]="['/register']"
-      class="text-neutral-400 p-2 rounded-sm border-solid border-[rgb(206,235,53)] border-2"
-    >
-      Signup
-    </button>
   </div>
 </div>
